@@ -59,6 +59,7 @@ def check_existing_email(email):
         new_account = input('Would you like to create new account, (y) yes, (n) no?: ').lower()
         if new_account == 'y':
             new_manager_acc = create_account()
+            return new_manager_acc
         if new_account == 'n':
             return False
        
@@ -131,7 +132,7 @@ def add_account_to_websites():
 
 def delete_account_from_website():
     url_choice = input(
-        'Where would you like to delete account from? (Y/F/G) or (b) - go back : ')
+        'Where would you like to delete account from? (y) - Youtube, (g) - Gmail, (f) - Facebook or (b) - go back : ')
     if url_choice == 'y':
         if len(db.list_of_accounts['YouTube']) < 1:
             print('There is no accounts to be deleted')
@@ -139,11 +140,15 @@ def delete_account_from_website():
         else:
             print('Please provide account email and password ')
             user_email = enter_email()
-            user_password = enter_pwrd()
-            db.list_of_accounts['YouTube'].remove(
-                {'email': user_email, 'password': user_password})
-            print('Account have been successfully deleted!')
-            questions_to_do()
+            for account in db.list_of_accounts['YouTube']:
+                if user_email == account['email']:
+                    user_password = enter_pwrd()
+                    db.list_of_accounts['YouTube'].remove(
+                    {'email': user_email, 'password': user_password})
+                    print('Account have been successfully deleted!')
+                    return questions_to_do()        
+            print('Email does not exist')
+            return questions_to_do()                               
     elif url_choice == 'g':
         if len(db.list_of_accounts['Gmail']) < 1:
             print('There is no accounts to be deleted')
@@ -151,11 +156,15 @@ def delete_account_from_website():
         else:
             print('Please provide account email and password ')
             user_email = enter_email()
-            user_password = enter_pwrd()
-            db.list_of_accounts['Gmail'].remove(
-                {'email': user_email, 'password': user_password})
-            print('Account have been successfully deleted!')
-            questions_to_do()
+            for account in db.list_of_accounts['Gmail']:
+                if user_email == account['email']:
+                    user_password = enter_pwrd()
+                    db.list_of_accounts['Gmail'].remove(
+                    {'email': user_email, 'password': user_password})
+                    print('Account have been successfully deleted!')
+                    return questions_to_do()        
+            print('Email does not exist')
+            return questions_to_do()
     elif url_choice == 'f':
         if len(db.list_of_accounts['Facebook']) < 1:
             print('There is no accounts to be deleted')
@@ -163,11 +172,15 @@ def delete_account_from_website():
         else:
             print('Please provide account email and password ')
             user_email = enter_email()
-            user_password = enter_pwrd()
-            db.list_of_accounts['Facebook'].remove(
-                {'email': user_email, 'password': user_password})
-            print('Account have been successfully deleted!')
-            questions_to_do()
+            for account in db.list_of_accounts['Facebook']:
+                if user_email == account['email']:
+                    user_password = enter_pwrd()
+                    db.list_of_accounts['Facebook'].remove(
+                    {'email': user_email, 'password': user_password})
+                    print('Account have been successfully deleted!')
+                    return questions_to_do()        
+            print('Email does not exist')
+            return questions_to_do()
     elif url_choice == 'b':
         questions_to_do()
     else:
